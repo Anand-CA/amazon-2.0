@@ -60,7 +60,7 @@ const CartProduct = ({ id, title, rating, price, img }) => {
               setUpdate(true);
             }}
             name="cars"
-            className="border-2 px-2 py-1 rounded-md"
+            className="border-2  sm:p-1 rounded-md"
           >
             <option value="1">1</option>
             <option value="2">2</option>

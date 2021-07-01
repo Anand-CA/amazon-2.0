@@ -14,7 +14,7 @@ function Cart() {
         className="px-3   py-3 max-w-screen-xl mx-auto"
       >
         <div className="py-2 px-2 border-b-2">
-          <h1 className="text-3xl  font-semibold">Cart Items</h1>
+          <h1 className="sm:text-3xl text-xl font-semibold">Cart Items</h1>
         </div>
         {cart.length === 0 ? (
           <div

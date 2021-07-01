@@ -9,7 +9,7 @@ import { logout, selectUser } from "../features/userSlice";
 function Header() {
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
-  const user = useSelector(selectUser)
+  const user = useSelector(selectUser);
   return (
     <div className="bg-black sticky top-0 z-10">
       {/* container */}
@@ -32,32 +32,24 @@ function Header() {
             </IconButton>
           </div>
         </div>
-
         {/* nav items */}
         <div className="text-white ml-auto">
           <ul className="flex items-center ">
-            <li>
-              <button
-                onClick={() => {
-                  sessionStorage.clear();
-                  dispatch(logout());
-                }}
-                className="px-4"
-              >
-                sign out
-              </button>
-            </li>
-            <li className="mr-3 sm:text-md text-xs flex flex-col">
-              Hello, <span className="font-bold">{user?.email}</span>{" "}
+            <li className=" no-underline	mr-3 text-xs sm:text-sm flex flex-col">
+              Hello,{" "}
+              <span className="font-bold text-xs sm:text-sm">
+                {user?.email}Anand
+              </span>{" "}
             </li>
             <Link to="/orders">
-              <li className="flex sm:text-md text-xs flex-col">
-                Returns <span className="font-bold">& Orders</span>
+              <li className="no-underline text-xs sm:text-sm text-white flex flex-col">
+                Returns{" "}
+                <span className="font-bold text-xs sm:text-sm">& Orders</span>
               </li>
             </Link>
 
             <Link to="/cart">
-              <li className="relative">
+              <li className="relative no-underline	">
                 <IconButton>
                   <ShoppingCartIcon
                     fontSize="medium"
