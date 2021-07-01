@@ -1,6 +1,8 @@
 import axios from "axios";
 import moment from "moment";
-import { Icon, Label, Menu, Table } from "semantic-ui-react";
+import { Button } from "@material-ui/core";
+import { Icon, Label, Menu, Table, Header, Image } from "semantic-ui-react";
+import Modal from "../components/Modal";
 import React, { useEffect, useState } from "react";
 import CartProduct from "../components/CartProduct";
 function Orders() {
@@ -10,6 +12,8 @@ function Orders() {
       setOrders(res.data);
     });
   }, []);
+  const [open, setOpen] = useState(false);
+
   console.log("orders", orders);
   return (
     <div className="bg-gray-100">
@@ -23,6 +27,7 @@ function Orders() {
               <Table.HeaderCell>Address</Table.HeaderCell>
               <Table.HeaderCell>Payment method</Table.HeaderCell>
               <Table.HeaderCell>Status</Table.HeaderCell>
+              <Table.HeaderCell>Products</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
@@ -44,6 +49,12 @@ function Orders() {
                 >
                   {order.status}
                 </Table.Cell>
+                <Table.Cell>
+                  <Button onClick={() => setOpen(true)} variant="outlined">
+                    view products
+                  </Button>
+                </Table.Cell>
+                <Modal open={open} setOpen={setOpen} />
               </Table.Row>
             ))}
           </Table.Body>
