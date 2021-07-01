@@ -7,45 +7,62 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
-import { selectUser } from "./features/userSlice";
-import { useSelector } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Success from "./pages/Success";
+import { auth } from "./firebase";
 function App() {
-  const user = true;
-  console.log("😄", user);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        //loged in......
+        console.log("😊", authUser);
+        dispatch(
+          login({
+            name: authUser.displayName,
+            email: authUser.email,
+          })
+        );
+      } else {
+        //created new user........
+        dispatch(logout);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <div className="app">
-      
-      {user ? (
-        <Router>
-          <Switch>
-            <Route path="/success">
-              <Success />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/orders">
-              <Header />
-              <Orders />
-            </Route>
-            <Route path="/checkout">
-              <Header />
-              <Checkout />
-            </Route>
-            <Route path="/cart">
-              <Header />
-              <Cart />
-            </Route>
-            <Route exact path="/">
-              <Header />
-              <Main />
-            </Route>
-          </Switch>
-        </Router>
-      ) : (
-        <Login />
-      )}
+      <Router>
+        <Switch>
+          <Route path="/success">
+            <Success />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
+          </Route>
+          <Route path="/checkout">
+            <Header />
+            <Checkout />
+          </Route>
+          <Route path="/cart">
+            <Header />
+            <Cart />
+          </Route>
+          <Route exact path="/">
+            <Header />
+            <Main />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

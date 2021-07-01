@@ -23,20 +23,20 @@ function Product({ id, title, rating, price, img }) {
         })
       );
     } else {
-      alert("item already exist 😅 ");
+      alert('item already in cart')
     }
   };
   return (
     <div className="p-3 animate__animated animate__fadeIn  flex hover:shadow-xl transition-all duration-300	 hover:scale-105 transform flex-col bg-white space-y-1 ">
       {/* image */}
       <div className="flex-1">
-        <img  className="p-2" src={img} alt="" />
+        <img className="p-2" src={img} alt="" />
       </div>
       <p className="line-clamp-2 text-xs sm:text-base sm:line-clamp-3">
         {title}
       </p>
       <div className="py-3">
-        <Rating icon="star" defaultRating={rating} maxRating={5} />
+        <Rating icon="star" disabled defaultRating={rating} maxRating={5} />
       </div>
       <p className="text-xs sm:text-base">₹{price}</p>
       <button

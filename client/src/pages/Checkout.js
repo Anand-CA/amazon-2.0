@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { selectCart } from "../features/cartSlice";
 import { Button } from "@material-ui/core";
+import { selectUser } from "../features/userSlice";
 
 function Checkout() {
   const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
   const history = useHistory();
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState(null);
@@ -52,6 +54,7 @@ function Checkout() {
         payment_method: paymentMethod,
         products: cart,
         totalAmount: total,
+        user: user,
       })
       .then((res) => {
         console.log(res.data);
@@ -101,7 +104,9 @@ function Checkout() {
     <div className="">
       {/* container */}
       <div className="max-w-screen-xl space-y-8 py-3 px-5 mx-auto h-screen bg-white">
-        <h1 className="font-sans pt-10 text-2xl sm:text-4xl">Checkout details</h1>
+        <h1 className="font-sans pt-10 text-2xl sm:text-4xl">
+          Checkout details
+        </h1>
         <form
           action=""
           className="grid grid-cols-1 md:grid-cols-2 mt-10 "

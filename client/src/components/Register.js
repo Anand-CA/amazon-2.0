@@ -1,26 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { auth } from "../firebase";
 
-function Register({ toggle , setToggle }) {
+function Register({ toggle, setToggle }) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const register = (event) => {
+    event.preventDefault();
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        return authUser.user.updateProfile({
+          displayName: username,
+        });
+      })
+      .catch((error) => alert(error.message));
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    history.push("/");
+  };
   return (
     <div>
-      <form action="" className="space-y-3 bg-white border p-5">
+      <form
+        action=""
+        onSubmit={register}
+        className="space-y-3 bg-white border p-5"
+      >
         <h1>Create account</h1>
         <div className="flex flex-col w-full">
           <label htmlFor="">Your name</label>
-          <input type="text" className="p-3 border-2 " />
+          <input
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+            type="text"
+            className="p-3 border-2 "
+          />
         </div>
         <div className="flex flex-col w-full">
           <label htmlFor="">Email</label>
-          <input type="text" className="p-3 border-2 " />
+          <input
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+            type="email"
+            className="p-3 border-2 "
+          />
         </div>
 
         <div className="flex flex-col w-full">
           <label htmlFor="">Password</label>
-          <input type="text" className="p-3 border-2 " />
+          <input
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            type="password"
+            required
+            className="p-3 border-2 "
+          />
         </div>
 
-        <button className="py-3 w-full border border-black bg-gradient-to-b from-gray-100 to-yellow-400">
-          Continue
+        <button
+          type="submit"
+          className="py-3 w-full border border-black bg-gradient-to-b from-gray-100 to-yellow-400"
+        >
+          Register
         </button>
         <p>
           Already have a account?{" "}

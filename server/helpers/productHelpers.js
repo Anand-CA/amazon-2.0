@@ -39,6 +39,7 @@ module.exports = {
         status: status,
         totalAmount: orderDetails.totalAmount,
         paymentMethod: orderDetails.payment_method,
+        user: orderDetails.user,
         date: new Date(),
       };
       db.get()

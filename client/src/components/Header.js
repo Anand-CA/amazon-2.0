@@ -1,15 +1,30 @@
 import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
+import { Popup, Dropdown } from "semantic-ui-react";
 import { IconButton } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCart } from "../features/cartSlice";
 import { logout, selectUser } from "../features/userSlice";
+import { auth } from "../firebase";
 function Header() {
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
+  const history = useHistory();
+  const options = [
+    {
+      key: "Jenny Hess",
+      text: "Jenny Hess",
+      value: "Jenny Hess",
+    },
+    {
+      key: "Jenny Hess",
+      text: "Jenny Hess",
+      value: "Jenny Hess",
+    },
+  ];
   return (
     <div className="bg-black sticky top-0 z-10">
       {/* container */}
@@ -36,10 +51,29 @@ function Header() {
         <div className="text-white ml-auto">
           <ul className="flex items-center ">
             <li className=" no-underline	mr-3 text-xs sm:text-sm flex flex-col">
-              Hello,{" "}
-              <span className="font-bold text-xs sm:text-sm">
-                {user?.email}Anand
-              </span>{" "}
+              Hello,
+              <Dropdown
+                text={user ? user?.name : "Login"}
+                pointing
+                className="link item"
+              >
+                <Dropdown.Menu>
+                  {user ? (
+                    <Dropdown.Item
+                      onClick={() => {
+                        auth.signOut();
+                        dispatch(logout());
+                      }}
+                    >
+                      sign out
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item onClick={() => history.push("/login")}>
+                      Login
+                    </Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
             <Link to="/orders">
               <li className="no-underline text-xs sm:text-sm text-white flex flex-col">

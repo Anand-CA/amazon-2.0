@@ -1,4 +1,6 @@
 import axios from "axios";
+import moment from "moment";
+import { Icon, Label, Menu, Table } from "semantic-ui-react";
 import React, { useEffect, useState } from "react";
 import CartProduct from "../components/CartProduct";
 function Orders() {
@@ -14,34 +16,38 @@ function Orders() {
       {/* container */}
       <div className=" mx-auto max-w-screen-xl">
         <h1 className="text-4xl p-3">Orders</h1>
-        {orders?.map((order) => (
-          <div className="bg-white m-3 p-3">
-            <p>{order._id}</p>
-            <p>Ordered on {order.date}</p>
-            <p>
-              Address: {order.deliveryDetails.address},
-              {order.deliveryDetails.phone_number},
-              {order.deliveryDetails.pincode}
-            </p>
-            <p>Payment method: {order.paymentMethod}</p>
-            <p>Status: {order.status}</p>
-            <div>
-              {order.products.map((product) => (
-                <div>
-                  <div>
-                    <img className="h-20" src={product.img} alt="" />
-                  </div>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Date</Table.HeaderCell>
+              <Table.HeaderCell>Address</Table.HeaderCell>
+              <Table.HeaderCell>Payment method</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
 
-                  <div>
-                    <p>{product.title}</p>
-                    <p>{product.quantity}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p>total: {order.totalAmount}</p>
-          </div>
-        ))}
+          <Table.Body>
+            {orders?.map((order) => (
+              <Table.Row>
+                <Table.Cell>{moment(order.date).format("LLL")}</Table.Cell>
+                <Table.Cell>
+                  <p> {order.deliveryDetails.address}</p>
+                  <p> {order.deliveryDetails.phone_number}</p>
+                  <p>{order.deliveryDetails.pincode}</p>
+                  <p>{order.user?.name}</p>
+                </Table.Cell>
+                <Table.Cell>{order.paymentMethod}</Table.Cell>
+                <Table.Cell
+                  className={`${
+                    order.status === "placed" ? "positive" : "negative"
+                  }`}
+                >
+                  {order.status}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       </div>
     </div>
   );

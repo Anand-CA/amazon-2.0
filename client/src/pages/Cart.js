@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectCart } from "../features/cartSlice";
 import CartProduct from "../components/CartProduct";
+import { selectUser } from "../features/userSlice";
 function Cart() {
   const cart = useSelector(selectCart);
   console.log("cart >>>", cart);
-
+  const history = useHistory();
+  const user = useSelector(selectUser);
   return (
     <div className=" bg-gray-100">
       <div
@@ -47,14 +49,23 @@ function Cart() {
 
         {/* checkout button */}
         <div className="px-3 fixed bottom-0 right-10 flex justify-end py-5">
-          <Link to="/checkout">
-            <button
-              hidden={cart.length === 0}
-              className="text-black px-3 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 focus:ring-4 rounded-md focus:ring-yellow-500"
+          {user ? (
+            <Link to="/checkout">
+              <button
+                hidden={cart.length === 0}
+                className="text-black px-3 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 focus:ring-4 rounded-md focus:ring-yellow-500"
+              >
+                Proceed to checkout
+              </button>
+            </Link>
+          ) : (
+            <p
+              onClick={() => history.push("/login")}
+              className="cursor-pointer text-black px-3 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 focus:ring-4 rounded-md focus:ring-yellow-500"
             >
-              Proceed to checkout
-            </button>
-          </Link>
+              Sign in to checkout
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
 import Register from "../components/Register";
+import { auth } from "../firebase";
+import { useHistory } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const history = useHistory();
   const [toggle, setToggle] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +25,18 @@ function Login() {
         dispatch(login(JSON.parse(userr)));
       });
     setEmail("");
+
     setPassword("");
+  };
+
+  const signIn = (event) => {
+    event.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => alert(error.message));
+    setEmail("");
+    setPassword("");
+    history.push("/");
   };
   console.log(toggle);
   return (
@@ -35,20 +49,36 @@ function Login() {
         ) : (
           <form
             action=""
+            onSubmit={signIn}
             className="p-5 bg-white space-y-3 flex flex-col  border-2"
           >
             <h1>Sign In</h1>
             <div className="flex flex-col w-full">
               <label htmlFor="">Email</label>
-              <input type="text" className="p-3 border-2 " />
+              <input
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+                type="email"
+                className="p-3 border-2 "
+              />
             </div>
 
             <div className="flex flex-col w-full">
               <label htmlFor="">Password</label>
-              <input type="text" className="p-3 border-2 " />
+              <input
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                type="password"
+                required
+                className="p-3 border-2 "
+              />
             </div>
-            <button className="py-3 w-full border border-black bg-gradient-to-b from-gray-100 to-yellow-400">
-              Continue
+            <button
+              type="submit"
+              className="py-3 w-full border border-black bg-gradient-to-b from-gray-100 to-yellow-400"
+            >
+              Login
             </button>
             <p className="text-center">
               By continuing, you agree to Amazon's Conditions of Use and Privacy
