@@ -3,6 +3,7 @@
 Amazon 2.0, a full working e-commerce app integrated with razorpay.
 
 ## LIVE DEMO 
+https://fir-a2d57.web.app/
 
 
 ## Technologies🚀 used
