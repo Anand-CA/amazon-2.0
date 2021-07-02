@@ -42,8 +42,6 @@ function Cart() {
                 key={product.id}
                 id={product.id}
                 title={product.title}
-                rating={product.rating}
-                price={product.price}
                 img={product.img}
               />
             ))}

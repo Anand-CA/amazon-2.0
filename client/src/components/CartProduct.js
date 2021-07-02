@@ -1,9 +1,9 @@
-import React, { useState, forwardRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../features/cartSlice";
 import { motion } from "framer-motion";
 
-const CartProduct = ({ id, title, rating, price, img }) => {
+const CartProduct = ({ id, title, img }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [update, setUpdate] = useState(false);

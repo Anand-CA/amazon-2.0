@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import { Popup, Dropdown } from "semantic-ui-react";
+import {  Dropdown } from "semantic-ui-react";
 import { IconButton } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link, useHistory } from "react-router-dom";
@@ -18,20 +18,7 @@ function Header() {
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
   const history = useHistory();
-  console.log("user", user);
-  const options = [
-    {
-      key: "Jenny Hess",
-      text: "Jenny Hess",
-      value: "Jenny Hess",
-    },
-    {
-      key: "Jenny Hess",
-      text: "Jenny Hess",
-      value: "Jenny Hess",
-    },
-  ];
-
+  
   return (
     <div className="bg-black sticky top-0 z-10">
       {/* container */}

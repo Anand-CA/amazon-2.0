@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { selectCart } from "../features/cartSlice";
@@ -21,7 +21,6 @@ function Checkout() {
     var total = cart.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.price * currentValue.quantity;
     }, 0);
-    console.log("total", total);
     setTotal(total);
   };
   useEffect(() => {
@@ -79,7 +78,6 @@ function Checkout() {
                 })
                 .then((res) => {
                   if (res.data.status) {
-                    
                     history.push("/success");
                   }
                 });

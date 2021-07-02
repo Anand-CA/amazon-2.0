@@ -19,11 +19,7 @@ db.connect((err) => {
 app.get("/", (req, res) => {
   res.send("working🚀 ");
 });
-app.post("/register", (req, res) => {
-  productHelpers.register(req.body).then((response) => {
-    res.send(response);
-  });
-});
+
 app.get("/products", (req, res) => {
   productHelpers.getProducts().then((response) => {
     res.send(response);

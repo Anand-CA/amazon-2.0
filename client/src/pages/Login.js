@@ -1,11 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../features/userSlice";
 import Register from "../components/Register";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
-import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,24 +10,7 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [toggle, setToggle] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:9000/register", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log("user ", res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
-        const userr = localStorage.getItem("user");
-        dispatch(login(JSON.parse(userr)));
-      });
-    setEmail("");
-
-    setPassword("");
-  };
-
+  
   const signIn = (event) => {
     event.preventDefault();
     auth

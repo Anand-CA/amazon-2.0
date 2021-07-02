@@ -4,10 +4,7 @@ import { Table } from "semantic-ui-react";
 import React, { useEffect, useState } from "react";
 import { selectUser } from "../features/userSlice";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Login from "../pages/Login";
 function Orders() {
-  const history = useHistory();
   const user = useSelector(selectUser);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -15,9 +12,7 @@ function Orders() {
       setOrders(res.data);
     });
   }, []);
-  const [open, setOpen] = useState(false);
 
-  console.log("orders", orders);
   return (
     <div style={{ minHeight: "calc(100vh - 56px)" }} className="bg-gray-100 ">
       <div className="bg-gray-100 mx-auto max-w-screen-2xl">
@@ -54,7 +49,7 @@ function Orders() {
                 <Table.Cell>
                   <div className="space-y-2 ">
                     {order.products.map((item) => (
-                      <div className="">
+                      <div key={item.id} className="">
                         <img
                           className="h-20 object-contain"
                           src={item.img}

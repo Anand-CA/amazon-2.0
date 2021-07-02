@@ -1,5 +1,4 @@
 const db = require("../config/connection");
-const bcrypt = require("bcrypt");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 var ObjectId = require("mongodb").ObjectID;

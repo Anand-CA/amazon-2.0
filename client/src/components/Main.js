@@ -10,7 +10,6 @@ function Main() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:9000/products").then((res) => {
-      console.log(res.data);
       setProducts(res.data);
     });
   }, []);
@@ -35,10 +34,16 @@ function Main() {
               />
             </div>
             <div>
-              <img src="https://m.media-amazon.com/images/I/61SROPzucIL._SX1500_.jpg" />
+              <img
+                src="https://m.media-amazon.com/images/I/61SROPzucIL._SX1500_.jpg"
+                alt=""
+              />
             </div>
             <div>
-              <img src="https://m.media-amazon.com/images/I/61aUfpZteZL._SX1500_.jpg" />
+              <img
+                src="https://m.media-amazon.com/images/I/61aUfpZteZL._SX1500_.jpg"
+                alt=""
+              />
             </div>
           </Carousel>
         </div>

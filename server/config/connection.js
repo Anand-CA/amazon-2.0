@@ -1,11 +1,11 @@
+require("dotenv").config();
 const mongoClient = require("mongodb").MongoClient;
 const state = {
   db: null,
 };
 
 module.exports.connect = function (done) {
-  const url =
-    "mongodb+srv://test:test123@cluster0.kif5r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const url = process.env.mongo_url;
   const dbname = "amazon";
 
   mongoClient.connect(url, { useUnifiedTopology: true }, (err, data) => {
