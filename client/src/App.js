@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Success from "./pages/Success";
 import { auth } from "./firebase";
 function App() {
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -21,19 +21,18 @@ function App() {
         console.log("😊", authUser);
         dispatch(
           login({
+            id: authUser.uid,
             name: authUser.displayName,
             email: authUser.email,
           })
         );
       } else {
         //created new user........
-        dispatch(logout);
+        dispatch(logout());
       }
     });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    return unsubscribe;
+  }, [dispatch]);
 
   return (
     <div className="app">
@@ -46,8 +45,13 @@ function App() {
             <Login />
           </Route>
           <Route path="/orders">
-            <Header />
-            <Orders />
+            {user ? (
+              <>
+                <Header /> <Orders />
+              </>
+            ) : (
+              <Login />
+            )}
           </Route>
           <Route path="/checkout">
             <Header />

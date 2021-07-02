@@ -79,6 +79,7 @@ function Checkout() {
                 })
                 .then((res) => {
                   if (res.data.status) {
+                    
                     history.push("/success");
                   }
                 });

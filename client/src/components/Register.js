@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { login } from "../features/userSlice";
 import { auth } from "../firebase";
 
 function Register({ toggle, setToggle }) {
@@ -7,13 +9,14 @@ function Register({ toggle, setToggle }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
   const register = (event) => {
     event.preventDefault();
 
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        return authUser.user.updateProfile({
+        authUser.user.updateProfile({
           displayName: username,
         });
       })

@@ -1,14 +1,17 @@
 import axios from "axios";
 import moment from "moment";
-import { Button } from "@material-ui/core";
-import { Icon, Label, Menu, Table, Header, Image } from "semantic-ui-react";
-import Modal from "../components/Modal";
+import { Table } from "semantic-ui-react";
 import React, { useEffect, useState } from "react";
-import CartProduct from "../components/CartProduct";
+import { selectUser } from "../features/userSlice";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import Login from "../pages/Login";
 function Orders() {
+  const history = useHistory();
+  const user = useSelector(selectUser);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:9000/orders").then((res) => {
+    axios.get(`http://localhost:9000/orders/${user?.id}`).then((res) => {
       setOrders(res.data);
     });
   }, []);
@@ -16,9 +19,8 @@ function Orders() {
 
   console.log("orders", orders);
   return (
-    <div className="bg-gray-100">
-      {/* container */}
-      <div className=" mx-auto max-w-screen-xl">
+    <div style={{ minHeight: "calc(100vh - 56px)" }} className="bg-gray-100 ">
+      <div className="bg-gray-100 mx-auto max-w-screen-2xl">
         <h1 className="text-4xl p-3">Orders</h1>
         <Table celled>
           <Table.Header>
@@ -50,16 +52,30 @@ function Orders() {
                   {order.status}
                 </Table.Cell>
                 <Table.Cell>
-                  <Button onClick={() => setOpen(true)} variant="outlined">
-                    view products
-                  </Button>
+                  <div className="space-y-2 ">
+                    {order.products.map((item) => (
+                      <div className="">
+                        <img
+                          className="h-20 object-contain"
+                          src={item.img}
+                          alt=""
+                        />
+                        <p className="line-clamp-2">{item.title}</p>
+                        <p>
+                          <span className="font-bold">quantity:</span>{" "}
+                          {item.quantity}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </Table.Cell>
-                <Modal open={open} setOpen={setOpen} />
               </Table.Row>
             ))}
           </Table.Body>
         </Table>
       </div>
+
+      {/* container */}
     </div>
   );
 }

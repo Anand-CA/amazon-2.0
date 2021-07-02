@@ -50,12 +50,13 @@ module.exports = {
         });
     });
   },
-  getOrders: () => {
+  getOrders: (userId) => {
+    console.log("userId", userId);
     return new Promise((resolve, reject) => {
       db.get()
         .collection("orders")
-        .find()
-        .sort({ data: -1 })
+        .find({ "user.id": userId })
+        .sort({ date: -1 })
         .toArray()
         .then((res) => {
           resolve(res);

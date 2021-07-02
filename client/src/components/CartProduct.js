@@ -1,6 +1,7 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../features/cartSlice";
+import { motion } from "framer-motion";
 
 const CartProduct = ({ id, title, rating, price, img }) => {
   const dispatch = useDispatch();
@@ -37,7 +38,12 @@ const CartProduct = ({ id, title, rating, price, img }) => {
   }, [update]);
 
   return (
-    <div className="animate__animated animate__fadeInUp bg-white shadow-sm grid grid-cols-2 items-center my-3 px-2">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 1 }}
+      transition={{ duration: 0.4 }}
+      className="animate__animated animate__fadeInUp bg-white shadow-sm grid grid-cols-2 items-center my-3 px-2"
+    >
       {/* left */}
       <div className="flex justify-center">
         <img
@@ -76,7 +82,7 @@ const CartProduct = ({ id, title, rating, price, img }) => {
           Remove
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

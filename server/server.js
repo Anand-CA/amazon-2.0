@@ -62,8 +62,8 @@ app.post("/verify-payment", (req, res) => {
       }
     });
 });
-app.get("/orders", (req, res) => {
-  productHelpers.getOrders().then((response) => {
+app.get("/orders/:id", (req, res) => {
+  productHelpers.getOrders(req.params.id).then((response) => {
     res.send(response);
   });
 });

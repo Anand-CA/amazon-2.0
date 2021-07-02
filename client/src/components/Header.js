@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { Popup, Dropdown } from "semantic-ui-react";
 import { IconButton } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCart } from "../features/cartSlice";
+import {
+  selectCart,
+  selectSearchTerm,
+  setSearchTerm,
+} from "../features/cartSlice";
 import { logout, selectUser } from "../features/userSlice";
 import { auth } from "../firebase";
 function Header() {
   const dispatch = useDispatch();
+  const searchTerm = useSelector(selectSearchTerm);
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
   const history = useHistory();
+  console.log("user", user);
   const options = [
     {
       key: "Jenny Hess",
@@ -25,6 +31,7 @@ function Header() {
       value: "Jenny Hess",
     },
   ];
+
   return (
     <div className="bg-black sticky top-0 z-10">
       {/* container */}
@@ -39,7 +46,12 @@ function Header() {
 
         {/* search */}
         <div className="sm:flex hidden rounded-md overflow-hidden ">
-          <input type="text" className="focus:outline-none border:none px-3" />
+          <input
+            value={searchTerm}
+            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+            type="text"
+            className="focus:outline-none border:none px-3"
+          />
           {/* icon */}
           <div className="bg-yellow-500">
             <IconButton>
@@ -53,7 +65,7 @@ function Header() {
             <li className=" no-underline	mr-3 text-xs sm:text-sm flex flex-col">
               Hello,
               <Dropdown
-                text={user ? user?.name : "Login"}
+                text={user ? user.name || user.email : "Login"}
                 pointing
                 className="link item"
               >

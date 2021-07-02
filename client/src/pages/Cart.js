@@ -4,6 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import { selectCart } from "../features/cartSlice";
 import CartProduct from "../components/CartProduct";
 import { selectUser } from "../features/userSlice";
+import { motion } from "framer-motion"
+
+
 function Cart() {
   const cart = useSelector(selectCart);
   console.log("cart >>>", cart);
@@ -33,7 +36,7 @@ function Cart() {
             <h1 className="">Your cart is empty!</h1>
           </div>
         ) : (
-          <div className="pt-4">
+          <div className="pt-1">
             {cart?.map((product) => (
               <CartProduct
                 key={product.id}

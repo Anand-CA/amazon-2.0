@@ -3,7 +3,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
 import Product from "./Product";
+import { selectSearchTerm } from "../features/cartSlice";
+import { useSelector } from "react-redux";
 function Main() {
+  const searchTerm = useSelector(selectSearchTerm);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:9000/products").then((res) => {
@@ -42,16 +45,26 @@ function Main() {
 
         {/* products */}
         <div className="grid grid-cols-2 p-5 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {products?.map((product) => (
-            <Product
-              key={product._id}
-              id={product._id}
-              title={product.title}
-              rating={product.rating}
-              price={product.price}
-              img={product.img}
-            />
-          ))}
+          {products
+            ?.filter((pro) => {
+              if (searchTerm === "") {
+                return pro;
+              } else if (
+                pro.title.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return pro;
+              }
+            })
+            .map((product) => (
+              <Product
+                key={product._id}
+                id={product._id}
+                title={product.title}
+                rating={product.rating}
+                price={product.price}
+                img={product.img}
+              />
+            ))}
         </div>
       </div>
     </div>

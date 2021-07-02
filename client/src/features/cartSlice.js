@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
+  searchTerm: "",
 };
 
 export const cartSlice = createSlice({
@@ -29,11 +30,16 @@ export const cartSlice = createSlice({
       array[index].quantity = action.payload.quantity;
       state.cart = array;
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, setSearchTerm } =
+  cartSlice.actions;
 
 export const selectCart = (state) => state.cart.cart;
+export const selectSearchTerm = (state) => state.cart.searchTerm;
 
 export default cartSlice.reducer;
