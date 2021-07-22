@@ -17,7 +17,7 @@ function Main() {
   return (
     <div className="bg-gray-100">
       {/* container */}
-      <div className="max-w-screen-2xl bg-white mx-auto ">
+      <div className="max-w-screen-2xl  mx-auto ">
         {/* carousel */}
         <div>
           <Carousel

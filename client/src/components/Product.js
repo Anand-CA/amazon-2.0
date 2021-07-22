@@ -29,7 +29,7 @@ function Product({ id, title, rating, price, img }) {
   return (
     <div
       
-      className="p-3 flex hover:shadow-xl transition-all duration-300	 hover:scale-105 transform flex-col bg-white space-y-1 "
+      className="p-3 flex shadow rounded-xl hover:shadow-xl transition-all duration-300	 hover:scale-105 transform flex-col bg-white space-y-1 "
     >
       {/* image */}
       <div className="flex-1">

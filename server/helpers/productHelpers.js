@@ -76,7 +76,6 @@ module.exports = {
         receipt: orderId.toString(),
       };
       instance.orders.create(options, function (err, order) {
-        console.log("errr >>", err);
         resolve(order);
       });
     });

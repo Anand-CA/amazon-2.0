@@ -25,8 +25,8 @@ function Header() {
       <div className="h-16 px-3 flex items-center ">
         <Link to="/">
           <img
-            className="cursor-pointer h-7 md:ml-2 sm:h-10 mr-7"
-            src="https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white.png"
+            className="cursor-pointer h-8 md:ml-2 sm:h-12 mr-7"
+            src="/images/amazon-logo.png"
             alt=""
           />
         </Link>

@@ -21,18 +21,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  productHelpers.getProducts().then((response) => {
-    res.send(response);
-  });
+  try {
+    productHelpers.getProducts().then((response) => {
+      res.send(response);
+    });
+  } catch (error) {
+      throw error
+  }
+ 
 });
 
 app.post("/add-product", (req, res) => {
-  console.log(req.body);
   productHelpers.addProduct(req.body);
 });
 
 app.post("/place-order", (req, res) => {
-  console.log(req.body);
   productHelpers.placeOrder(req.body).then((response) => {
     if (req.body.payment_method === "cod") {
       res.send({ codStatus: true });
